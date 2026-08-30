@@ -4,7 +4,7 @@ Katkılar memnuniyetle karşılanır. Büyük bir değişikliğe başlamadan ön
 
 ## Geliştirme ortamı
 
-Node.js 18.17 veya üstü gerekir.
+Node.js 20 veya üstü gerekir.
 
 ```bash
 npm install

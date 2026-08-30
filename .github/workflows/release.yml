@@ -56,15 +56,26 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          # Trusted publishing Node >= 22.14 istiyor.
-          node-version: "22.14"
-          cache: npm
+          # Trusted publishing Node >= 22.14 istiyor. Tam surum pinlemeyin:
+          # "22.14" en son 22.x'i degil tam olarak 22.14.0'i getirir ve guncel
+          # npm surumleri icin fazla eski kalir.
+          node-version: "22"
+          # Yayin derlemesinde bagimlilik onbellegi kullanilmaz (npm onerisi).
           registry-url: https://registry.npmjs.org
 
       # Node 22 ile gelen npm 10.x trusted publishing'i bilmiyor; >= 11.5.1 sart.
-      - name: npm CLI surumunu yukselt
+      # npm@latest'e sabitlemeyin: yeni npm majorleri Node tabanini yukseltiyor
+      # ve runner'daki Node ile uyusmayabiliyor (npm 12 Node >= 22.22.2 istiyor).
+      - name: npm CLI surumunu hazirla
         run: |
-          npm install -g npm@latest
+          need="11.5.1"
+          have="$(npm --version)"
+          if [ "$(printf '%s\n%s\n' "$need" "$have" | sort -V | head -1)" != "$need" ]; then
+            echo "npm $have < $need, npm@11 kuruluyor"
+            npm install -g npm@11
+          else
+            echo "npm $have yeterli"
+          fi
           npm --version
 
       - run: npm ci

@@ -4,6 +4,26 @@ Bu proje [Semantic Versioning](https://semver.org/lang/tr/) kullanir.
 
 ## [Yayinlanmamis]
 
+## [0.1.1] - 2026-08-30
+
+### Degisti
+- npm yayini artik Trusted Publishing (OIDC) ile yapiliyor; `NPM_TOKEN` sirri
+  kaldirildi. Provenance imzasi otomatik uretiliyor.
+- Desteklenen en dusuk Node surumu 20. Node 18, 2025-04'te EOL oldu ve gelistirme
+  zinciri (vitest 4) artik uzerinde calismiyor. CI matrisi: 20, 22, 24.
+- `zod` 3.25 -> 4.4 (SDK her ikisini de destekliyor; kaynak kodda dogrudan
+  kullanilmiyor, MCP SDK'nin peer bagimliligi olarak tutuluyor)
+- `actions/checkout` ve `actions/setup-node` v4 -> v7
+- Gelistirme bagimliliklari: vitest 2 -> 4, @types/node 22 -> 26, typescript 5.7 -> 5.9
+
+### Duzeltildi
+- Release akisi npm isinde basarisiz oluyordu: Node `22.14` olarak tam surum
+  pinlenmisti ve `npm@latest` (npm 12, Node >= 22.22.2 istiyor) kurulamiyordu.
+  Node artik `22` (en son 22.x) ve npm yalnizca 11.5.1'in altindaysa npm@11'e
+  yukseltiliyor.
+- Yayin isinde bagimlilik onbellegi kapatildi (npm'in yayin derlemeleri icin
+  onerisi).
+
 ## [0.1.0] - 2026-08-30
 
 Ilk surum.
@@ -21,5 +41,6 @@ Ilk surum.
 - MCP Registry kaydi (`server.json`, `io.github.ubaranzorlu/fonzip`)
 - Etiket ile tetiklenen yayin akisi: npm (provenance imzali) ve MCP Registry
 
-[Yayinlanmamis]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.0...HEAD
+[Yayinlanmamis]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ubaranzorlu/fonzip-mcp/releases/tag/v0.1.0

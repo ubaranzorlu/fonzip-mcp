@@ -30,7 +30,7 @@ Ajan:   [fonzip_donations / list çağrılır]
 
 ## Kurulum
 
-Node.js 18.17 veya üstü gerekir. Önce Fonzip'te **Ayarlar > Gelişmiş > Fonzip API** menüsünden **API anahtarı oluşturun**; size bir `client_id` ve `client_secret` verilir.
+Node.js 20 veya üstü gerekir. Önce Fonzip'te **Ayarlar > Gelişmiş > Fonzip API** menüsünden **API anahtarı oluşturun**; size bir `client_id` ve `client_secret` verilir.
 
 > [!IMPORTANT]
 > Fonzip anahtarları `$2b$12$...` ile başlar. Kabukta **tek tırnak** kullanın — çift tırnak veya tırnaksız yazarsanız kabuk `$2b` ve `$12` kısımlarını değişken sanıp siler ve `HTTP 403` alırsınız. JSON dosyalarında bu sorun yoktur.
