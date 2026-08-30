@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.tsbuildinfo
+
+# Ortam degiskenleri ve kimlik bilgileri
+.env
+.env.local
+.env.*.local
+
+.DS_Store

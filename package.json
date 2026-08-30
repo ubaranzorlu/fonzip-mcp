@@ -1,0 +1,80 @@
+{
+  "name": "@ubaranzorlu/fonzip-mcp",
+  "version": "0.1.0",
+  "mcpName": "io.github.ubaranzorlu/fonzip",
+  "description": "Fonzip API v2 icin Model Context Protocol (MCP) sunucusu - bagis, uye, aidat, etkinlik ve kampanya verilerine AI ajanlarindan erisim",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "modelcontextprotocol",
+    "mcp-server",
+    "claude",
+    "fonzip",
+    "bagis",
+    "dernek",
+    "vakif",
+    "stk",
+    "nonprofit",
+    "fundraising",
+    "donation",
+    "crm"
+  ],
+  "license": "MIT",
+  "author": "Umut Baran Zorlu <umut@baranzorlu.com>",
+  "homepage": "https://github.com/ubaranzorlu/fonzip-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubaranzorlu/fonzip-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ubaranzorlu/fonzip-mcp/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "bin": {
+    "fonzip-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "server.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "generate": "tsx scripts/generate.ts",
+    "build": "npm run generate && tsup",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "smoke": "tsx scripts/smoke.ts",
+    "version": "tsx scripts/sync-version.ts && git add src/version.ts server.json",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "yaml": "^2.6.1"
+  }
+}

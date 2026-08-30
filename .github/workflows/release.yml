@@ -1,0 +1,104 @@
+name: Release
+
+# v0.1.0 gibi bir etiket push edildiginde npm'e ve MCP Registry'ye yayinlar.
+#   npm version patch|minor|major && git push --follow-tags
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+      # Etiket ile package.json/server.json surumleri ayni olmali.
+      - name: Surum tutarliligi
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg=$(node -p "require('./package.json').version")
+          srv=$(node -p "require('./server.json').version")
+          srv_pkg=$(node -p "require('./server.json').packages[0].version")
+          echo "etiket=$tag package.json=$pkg server.json=$srv paket=$srv_pkg"
+          test "$tag" = "$pkg" && test "$tag" = "$srv" && test "$tag" = "$srv_pkg"
+
+  npm:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # npm provenance imzasi icin gerekli.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  registry:
+    needs: npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # MCP Registry'de GitHub OIDC ile kimlik dogrulama.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: mcp-publisher kur
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" \
+            | tar xz mcp-publisher
+          sudo mv mcp-publisher /usr/local/bin/
+
+      # npm'in yeni surumu yayina almasi birkac saniye surebiliyor;
+      # registry paketin varligini dogruluyor.
+      - name: npm yayinini bekle
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          for i in $(seq 1 30); do
+            if npm view "@ubaranzorlu/fonzip-mcp@$version" version >/dev/null 2>&1; then
+              echo "npm'de gorunur"
+              exit 0
+            fi
+            echo "bekleniyor ($i/30)..."
+            sleep 10
+          done
+          echo "npm'de $version bulunamadi"
+          exit 1
+
+      - run: mcp-publisher login github-oidc
+      - run: mcp-publisher publish
+
+  github-release:
+    needs: npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: GitHub release olustur
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes --verify-tag
+        env:
+          GH_TOKEN: ${{ github.token }}

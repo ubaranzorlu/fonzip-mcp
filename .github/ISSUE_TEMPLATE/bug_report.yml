@@ -1,0 +1,60 @@
+name: Hata bildirimi
+description: Beklenmeyen bir davranis bildirin
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Ne oldu
+      description: Beklenen davranis neydi, bunun yerine ne oldu?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Yeniden uretme adimlari
+      description: Hangi tool, hangi action, hangi argumanlarla cagrildi?
+      placeholder: |
+        1. fonzip_donations / list cagrildi
+        2. Argumanlar: { "status": "paid", "start_date": "..." }
+        3. Donen hata: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Hata mesaji
+      description: Sunucunun dondurdugu tam mesaj. Token, client id ve client secret degerlerini silin.
+      render: text
+
+  - type: input
+    id: version
+    attributes:
+      label: fonzip-mcp surumu
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: client
+    attributes:
+      label: MCP istemcisi
+      placeholder: "Claude Code 2.x / Claude Desktop / Cursor / ..."
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: Node.js surumu
+      placeholder: "22.19.0"
+
+  - type: checkboxes
+    id: secrets
+    attributes:
+      label: Onay
+      options:
+        - label: Bu bildirimde client id, client secret veya erisim token'i paylasmadim.
+          required: true

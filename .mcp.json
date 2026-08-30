@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fonzip": {
+      "command": "node",
+      "args": ["./dist/index.js"],
+      "env": {
+        "FONZIP_CLIENT_ID": "${FONZIP_CLIENT_ID}",
+        "FONZIP_CLIENT_SECRET": "${FONZIP_CLIENT_SECRET}"
+      }
+    }
+  }
+}

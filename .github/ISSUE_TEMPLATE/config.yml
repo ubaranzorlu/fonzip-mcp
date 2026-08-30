@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Fonzip API sorulari
+    url: mailto:help@fonzip.com
+    about: API'nin kendisiyle ilgili sorular (uc nokta davranisi, yetki, kota) Fonzip destegine gider. Bu depo yalnizca MCP sunucusuyla ilgilenir.
+  - name: Guvenlik acigi
+    url: https://github.com/ubaranzorlu/fonzip-mcp/security/advisories/new
+    about: Guvenlik aciklarini public issue olarak acmayin.

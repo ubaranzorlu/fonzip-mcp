@@ -1,0 +1,52 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.ubaranzorlu/fonzip",
+  "description": "Fonzip API v2 icin MCP sunucusu: dernek ve vakiflarin bagis, uye, aidat, etkinlik ve kampanya verilerine erisim.",
+  "repository": {
+    "url": "https://github.com/ubaranzorlu/fonzip-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@ubaranzorlu/fonzip-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "FONZIP_CLIENT_ID",
+          "description": "Fonzip API client id. Fonzip > Ayarlar > Gelismis > Fonzip API menusunden olusturulur.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "FONZIP_CLIENT_SECRET",
+          "description": "Fonzip API client secret.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "FONZIP_SCHEMA_MODE",
+          "description": "Tool semasi ayrintisi: full (varsayilan) veya compact.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "full"
+        },
+        {
+          "name": "FONZIP_BASE_URL",
+          "description": "Fonzip API adresi.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "https://fonzip.com/api/v2"
+        }
+      ]
+    }
+  ]
+}

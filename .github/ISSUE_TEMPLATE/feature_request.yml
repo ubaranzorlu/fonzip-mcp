@@ -1,0 +1,36 @@
+name: Ozellik onerisi
+description: Yeni bir davranis veya iyilestirme onerin
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Cozulmek istenen problem
+      description: Hangi is akisi su an zor veya mumkun degil?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Onerilen cozum
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kapsam
+      options:
+        - Yeni tool veya action
+        - Mevcut tool'un davranisi
+        - Yapilandirma / ortam degiskeni
+        - Dokumantasyon
+        - Diger
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Denenen alternatifler
