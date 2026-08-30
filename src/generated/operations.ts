@@ -1,6 +1,10 @@
 // Bu dosya otomatik uretildi. Elle duzenlemeyin.
 // Kaynak: openapi/fonzip-v2.yaml (Fonzip API v2.40.0)
 // Yeniden uretmek icin: npm run generate
+//
+// Asagidaki operasyon adlari, aciklamalari ve sema tanimlari Fonzip Yazilim
+// A.S.'ye ait API dokumanindan turemistir; MIT lisansi bu metinleri kapsamaz.
+// Ayrinti: NOTICE
 
 import type { ToolGroup } from "../types.js";
 

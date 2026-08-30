@@ -1,3 +1,7 @@
+# Fonzip API v2 OpenAPI spec'i.
+# Bu doküman Fonzip Yazilim A.S.'ye aittir; depoda yalnizca tool tanimlarinin
+# uretilmesi icin referans olarak bulunur. MIT lisansi bu dosyayi kapsamaz.
+# Ayrinti: ../NOTICE
 openapi: 3.0.3
 info:
   title: Fonzip API v2 Documents
