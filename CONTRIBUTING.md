@@ -99,10 +99,17 @@ git push --follow-tags
 
 Release workflow etiket ile üç dosyadaki sürümün eşleştiğini ayrıca kontrol eder; uyuşmazsa yayınlamadan durur.
 
-### Gereken depo sırları
+### Kimlik doğrulama
 
-| Sır | Nereden |
-|---|---|
-| `NPM_TOKEN` | npm > Access Tokens > Granular, `@ubaranzorlu/fonzip-mcp` paketine yazma yetkisi |
+Depoda **hiçbir yayın sırrı tutulmaz**. İki hedefe de OIDC ile kimlik doğrulanır:
 
-MCP Registry'ye yayın GitHub OIDC ile yapılır, ayrı bir sır gerekmez.
+| Hedef | Yöntem | Ön koşul |
+|---|---|---|
+| npm | Trusted Publishing (OIDC) | npmjs.com > paket > Settings > Trusted Publisher altında bu depo ve `release.yml` tanımlı |
+| MCP Registry | GitHub OIDC | `server.json` içindeki ad `io.github.ubaranzorlu/` ile başlamalı |
+
+İkisi de workflow'daki `id-token: write` iznine dayanır. Trusted publishing npm CLI ≥ 11.5.1 ve Node ≥ 22.14 ister; workflow npm'i açıkça yükseltir.
+
+Provenance imzası trusted publishing ile otomatik üretilir — `--provenance` bayrağı veya `publishConfig.provenance` gerekmez. (Bu alan bilerek boş: dolu olsaydı yerelden `npm publish` provenance üretemediği için hata verirdi.)
+
+Workflow aynı sürümü ikinci kez yayınlamaya çalışmaz; npm'de zaten varsa adımı atlar. Böylece bir release'i yeniden çalıştırmak güvenlidir.

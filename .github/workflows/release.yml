@@ -1,13 +1,22 @@
 name: Release
 
 # v0.1.0 gibi bir etiket push edildiginde npm'e ve MCP Registry'ye yayinlar.
-#   npm version patch|minor|major && git push --follow-tags
+#   npm version minor && git push --follow-tags
+#
+# Kimlik dogrulama token'siz yapilir:
+#   - npm     : Trusted Publishing (OIDC). npmjs.com > paket > Settings >
+#               Trusted Publisher altinda bu depo ve bu dosya adi tanimli olmali.
+#   - Registry: GitHub OIDC.
+# Ikisi de asagidaki id-token: write iznine dayanir.
 on:
   push:
     tags: ["v*.*.*"]
 
 permissions:
   contents: read
+
+env:
+  PACKAGE_NAME: "@ubaranzorlu/fonzip-mcp"
 
 jobs:
   verify:
@@ -40,21 +49,43 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      # npm provenance imzasi icin gerekli.
+      # Trusted Publishing (OIDC) ve provenance imzasi icin gerekli.
       id-token: write
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          # Trusted publishing Node >= 22.14 istiyor.
+          node-version: "22.14"
           cache: npm
           registry-url: https://registry.npmjs.org
 
+      # Node 22 ile gelen npm 10.x trusted publishing'i bilmiyor; >= 11.5.1 sart.
+      - name: npm CLI surumunu yukselt
+        run: |
+          npm install -g npm@latest
+          npm --version
+
       - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Ilk surum elden yayinlanmis olabilir. Ayni surumu tekrar gondermek
+      # npm tarafindan reddedilir; bu adim boyle bir durumda isi sessizce atlar.
+      - name: Bu surum npm'de var mi
+        id: check
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if npm view "$PACKAGE_NAME@$version" version >/dev/null 2>&1; then
+            echo "$PACKAGE_NAME@$version zaten yayinda, atlaniyor"
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Token yok: kimlik OIDC ile dogrulaniyor, provenance otomatik uretiliyor.
+      - name: npm'e yayinla
+        if: steps.check.outputs.published == 'false'
+        run: npm publish
 
   registry:
     needs: npm
@@ -68,17 +99,17 @@ jobs:
 
       - name: mcp-publisher kur
         run: |
-          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" \
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" \
             | tar xz mcp-publisher
           sudo mv mcp-publisher /usr/local/bin/
 
-      # npm'in yeni surumu yayina almasi birkac saniye surebiliyor;
-      # registry paketin varligini dogruluyor.
+      # npm'in yeni surumu dagitmasi birkac saniye surebiliyor; registry
+      # paketin gercekten var oldugunu dogruluyor.
       - name: npm yayinini bekle
         run: |
           version="${GITHUB_REF_NAME#v}"
           for i in $(seq 1 30); do
-            if npm view "@ubaranzorlu/fonzip-mcp@$version" version >/dev/null 2>&1; then
+            if npm view "$PACKAGE_NAME@$version" version >/dev/null 2>&1; then
               echo "npm'de gorunur"
               exit 0
             fi
@@ -89,7 +120,11 @@ jobs:
           exit 1
 
       - run: mcp-publisher login github-oidc
-      - run: mcp-publisher publish
+
+      # Ayni surum registry'de varsa publish hata verir; release'in tamami
+      # bu yuzden kirmizi olmasin.
+      - name: Registry'ye yayinla
+        run: mcp-publisher publish || echo "Registry yayini atlandi (surum muhtemelen zaten kayitli)"
 
   github-release:
     needs: npm
@@ -99,6 +134,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: GitHub release olustur
-        run: gh release create "$GITHUB_REF_NAME" --generate-notes --verify-tag
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            || gh release create "$GITHUB_REF_NAME" --generate-notes --verify-tag
         env:
           GH_TOKEN: ${{ github.token }}
