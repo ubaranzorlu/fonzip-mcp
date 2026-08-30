@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.ubaranzorlu/fonzip",
-  "description": "Fonzip API v2 icin MCP sunucusu: dernek ve vakiflarin bagis, uye, aidat, etkinlik ve kampanya verilerine erisim.",
+  "description": "Dernek ve vakiflar icin Fonzip API v2 MCP sunucusu: bagis, uye, aidat ve etkinlik verileri.",
   "repository": {
     "url": "https://github.com/ubaranzorlu/fonzip-mcp",
     "source": "github"

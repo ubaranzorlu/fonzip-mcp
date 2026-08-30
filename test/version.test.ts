@@ -52,6 +52,25 @@ describe("yayin meta verisi", () => {
     }
   });
 
+  // MCP Registry semasindaki sinirlar (server.schema.json). Bunlar publish
+  // sirasinda HTTP 422 ile reddedildigi icin burada erkenden dogrulanir.
+  it("server.json aciklamasi registry sinirini asmiyor", () => {
+    expect(server.description.length).toBeGreaterThan(0);
+    expect(server.description.length).toBeLessThanOrEqual(100);
+  });
+
+  it("server.json adi registry bicimine uyuyor", () => {
+    expect(server.name.length).toBeGreaterThanOrEqual(3);
+    expect(server.name.length).toBeLessThanOrEqual(200);
+    expect(server.name).toMatch(/^[a-zA-Z0-9.-]+\/[a-zA-Z0-9._-]+$/);
+  });
+
+  it("server.json baslik alani varsa sinir icinde", () => {
+    if (server.title !== undefined) {
+      expect(server.title.length).toBeLessThanOrEqual(100);
+    }
+  });
+
   it("pakette calisma icin gereken dosyalar var", () => {
     expect(pkg.files).toContain("dist");
     expect(pkg.bin["fonzip-mcp"]).toBe("dist/index.js");

@@ -132,10 +132,21 @@ jobs:
 
       - run: mcp-publisher login github-oidc
 
-      # Ayni surum registry'de varsa publish hata verir; release'in tamami
-      # bu yuzden kirmizi olmasin.
+      # Yalnizca "bu surum zaten kayitli" durumu tolere edilir. Butun hatalari
+      # yutmak (publish || true) is'i yesil gosterip yayini sessizce dusuruyordu;
+      # ornegin server.json dogrulama hatasi (HTTP 422) boyle gozden kacmisti.
       - name: Registry'ye yayinla
-        run: mcp-publisher publish || echo "Registry yayini atlandi (surum muhtemelen zaten kayitli)"
+        run: |
+          set -o pipefail
+          if mcp-publisher publish 2>&1 | tee publish.log; then
+            exit 0
+          fi
+          if grep -qiE "already exists|version.*published|duplicate" publish.log; then
+            echo "Bu surum registry'de zaten kayitli, atlaniyor."
+            exit 0
+          fi
+          echo "Registry yayini basarisiz."
+          exit 1
 
   github-release:
     needs: npm

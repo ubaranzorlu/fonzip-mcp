@@ -4,6 +4,16 @@ Bu proje [Semantic Versioning](https://semver.org/lang/tr/) kullanir.
 
 ## [Yayinlanmamis]
 
+## [0.1.2] - 2026-08-30
+
+### Duzeltildi
+- MCP Registry yayini HTTP 422 ile reddediliyordu: `server.json` icindeki
+  `description` 128 karakterdi, registry semasi en fazla 100 karaktere izin
+  veriyor. Aciklama kisaltildi ve sinir `test/version.test.ts` ile dogrulaniyor.
+- Release akisindaki registry adimi `|| echo` ile butun hatalari yutuyor,
+  yayin dusse bile is yesil gorunuyordu. Artik yalnizca "surum zaten kayitli"
+  durumu tolere ediliyor, diger hatalar akisi kirmizi yapiyor.
+
 ## [0.1.1] - 2026-08-30
 
 ### Degisti
@@ -41,6 +51,7 @@ Ilk surum.
 - MCP Registry kaydi (`server.json`, `io.github.ubaranzorlu/fonzip`)
 - Etiket ile tetiklenen yayin akisi: npm (provenance imzali) ve MCP Registry
 
-[Yayinlanmamis]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.1...HEAD
+[Yayinlanmamis]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/ubaranzorlu/fonzip-mcp/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ubaranzorlu/fonzip-mcp/releases/tag/v0.1.0
