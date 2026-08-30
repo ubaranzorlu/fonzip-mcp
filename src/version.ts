@@ -3,4 +3,4 @@
  * Calisma zamaninda package.json okumamak icin sabit tutuluyor (paket tek dosyaya
  * bundle ediliyor).
  */
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
