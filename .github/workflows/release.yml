@@ -22,7 +22,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
@@ -52,7 +52,7 @@ jobs:
       # Trusted Publishing (OIDC) ve provenance imzasi icin gerekli.
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
@@ -95,7 +95,7 @@ jobs:
       # MCP Registry'de GitHub OIDC ile kimlik dogrulama.
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: mcp-publisher kur
         run: |
@@ -132,7 +132,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: GitHub release olustur
         run: |
           gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
