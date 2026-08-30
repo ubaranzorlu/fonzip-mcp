@@ -1,6 +1,6 @@
 {
   "name": "@ubaranzorlu/fonzip-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "mcpName": "io.github.ubaranzorlu/fonzip",
   "description": "Fonzip API v2 icin Model Context Protocol (MCP) sunucusu - bagis, uye, aidat, etkinlik ve kampanya verilerine AI ajanlarindan erisim",
   "keywords": [
