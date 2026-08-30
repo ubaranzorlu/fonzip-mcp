@@ -15,6 +15,8 @@ Dernek ve vakıfların bağış, üye, aidat, etkinlik ve kampanya verilerine AI
 
 ---
 
+> Bağımsız bir açık kaynak projesidir; Fonzip Yazılım A.Ş. tarafından geliştirilmemiş, desteklenmemekte ve onaylanmamaktadır.
+
 Claude Code, Claude Desktop, Cursor, VS Code, Codex ve MCP destekleyen diğer istemcilerin Fonzip verilerinize doğrudan erişmesini sağlar.
 
 ```
@@ -258,6 +260,8 @@ Katkılar memnuniyetle karşılanır. Başlamadan önce [CONTRIBUTING.md](CONTRI
 
 ## Lisans
 
-[MIT](LICENSE) © Umut Baran Zorlu
+Bu depodaki kod [MIT](LICENSE) © Umut Baran Zorlu.
 
-Bu proje bağımsız bir açık kaynak çalışmasıdır; Fonzip tarafından geliştirilmemiştir ve desteklenmemektedir. API ile ilgili sorular için: help@fonzip.com
+`openapi/fonzip-v2.yaml` Fonzip Yazılım A.Ş.'nin kendi API dokümanıdır ve MIT kapsamı dışındadır; depoda yalnızca tool tanımlarının üretilmesi için referans olarak bulunur. Aynı istisna, spec'ten türeyen `src/generated/operations.ts` ve yayınlanan `dist/` içeriği için de geçerlidir. "Fonzip" adı yalnızca sunucunun hangi servise bağlandığını belirtmek için kullanılır. Ayrıntı: [NOTICE](NOTICE).
+
+API ile ilgili sorular için: help@fonzip.com

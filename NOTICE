@@ -1,0 +1,37 @@
+fonzip-mcp
+Copyright (c) 2026 Umut Baran Zorlu
+
+Bu depodaki kaynak kod MIT lisansı ile dağıtılır (bkz. LICENSE).
+Aşağıdaki istisnalar MIT kapsamı DIŞINDADIR:
+
+--------------------------------------------------------------------------
+Fonzip API v2 OpenAPI spec'i
+--------------------------------------------------------------------------
+Dosya:  openapi/fonzip-v2.yaml
+
+Bu doküman Fonzip Yazılım A.Ş. tarafından hazırlanmıştır ve üzerindeki her
+türlü hak Fonzip Yazılım A.Ş.'ye aittir (Fonzip Kullanıcı Sözleşmesi md. 6.1
+— https://fonzip.com/tr/yasal/kullanici-sozlesmesi). Depoda yalnızca tool
+tanımlarının üretilebilmesi ve üretimin doğrulanabilmesi amacıyla referans
+olarak bulunur. MIT lisansı bu dosyayı kapsamaz; dosya üzerinde bağımsız bir
+hak iddia edilmemektedir.
+
+Spec'ten türeyen metinler (operasyon adları, açıklamalar, parametre ve şema
+tanımları) şu dosyalarda da yer alır ve aynı kapsama tabidir:
+
+  src/generated/operations.ts   (scripts/generate.ts tarafından üretilir)
+  dist/                         (yayınlanan npm paketi)
+
+--------------------------------------------------------------------------
+Marka
+--------------------------------------------------------------------------
+"Fonzip" adı ve logosu Fonzip Yazılım A.Ş.'ye aittir. Bu projede yalnızca
+sunucunun hangi servise bağlandığını belirtmek için kullanılır; marka üzerinde
+hak iddia edilmez, ortaklık veya onay ima edilmez.
+
+Bu proje bağımsız bir açık kaynak çalışmasıdır. Fonzip Yazılım A.Ş.
+tarafından geliştirilmemiştir, desteklenmemektedir ve onaylanmamıştır.
+
+Fonzip Yazılım A.Ş. yukarıdaki kullanımlardan herhangi birinin kaldırılmasını
+veya değiştirilmesini isterse: https://github.com/ubaranzorlu/fonzip-mcp/issues
+veya umut@baranzorlu.com

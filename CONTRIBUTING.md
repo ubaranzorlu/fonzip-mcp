@@ -16,7 +16,7 @@ npm run build
 ## Proje yapısı
 
 ```
-openapi/fonzip-v2.yaml      Fonzip API v2 spec'i (kaynak doğruluk)
+openapi/fonzip-v2.yaml      Fonzip API v2 spec'i (kaynak doğruluk, Fonzip'e ait — bkz. NOTICE)
 server.json                 MCP Registry kaydı
 .mcp.json                   Bu depoda çalışan ajanlar için sunucu tanımı
 scripts/tool-map.ts         Tag → tool eşlemesi ve action adı istisnaları
@@ -37,7 +37,7 @@ src/generated/operations.ts Üretilen dosya — elle düzenlemeyin
 
 `src/generated/operations.ts` elle düzenlenmez. Değişiklik iki yerden birine yapılır:
 
-**Spec güncellemesi.** Fonzip yeni bir API sürümü yayınladığında `openapi/fonzip-v2.yaml` dosyasını değiştirip `npm run generate` çalıştırın.
+**Spec güncellemesi.** Fonzip yeni bir API sürümü yayınladığında `openapi/fonzip-v2.yaml` dosyasını değiştirip `npm run generate` çalıştırın. Dosyanın başındaki atıf yorumunu koruyun; spec Fonzip Yazılım A.Ş.'ye aittir ve MIT kapsamı dışındadır ([NOTICE](NOTICE)).
 
 **Gruplama veya adlandırma.** Bir tag'in hangi tool'a düşeceği, tool açıklamaları ve action adları `scripts/tool-map.ts` içindedir. Generator iki durumda hata verip durur:
 

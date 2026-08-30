@@ -4,6 +4,14 @@ Bu proje [Semantic Versioning](https://semver.org/lang/tr/) kullanir.
 
 ## [Yayinlanmamis]
 
+### Eklendi
+- `NOTICE` dosyasi: MIT lisansi yalnizca bu depodaki kodu kapsiyor.
+  `openapi/fonzip-v2.yaml` Fonzip Yazilim A.S.'ye ait olup depoda sadece tool
+  tanimlarinin uretilmesi icin referans olarak bulunuyor; spec'ten tureyen
+  `src/generated/operations.ts` ve yayinlanan `dist/` icerigi de ayni kapsam
+  disinda. Marka kullanimi ve bagimsizlik ibaresi de NOTICE'ta. Dosya npm
+  paketine dahil ediliyor (`files`).
+
 ## [0.1.2] - 2026-08-30
 
 ### Duzeltildi
